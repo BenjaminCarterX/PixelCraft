@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelCraft - Pixel Art Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PixelCraft</h1>
+        </header>
+        
+        <div class="editor">
+            <div class="toolbar">
+                <div class="tools">
+                    <button id="pencil" class="tool active" title="Pencil">✏️</button>
+                    <button id="eraser" class="tool" title="Eraser">🧹</button>
+                </div>
+                
+                <div class="color-picker">
+                    <input type="color" id="colorPicker" value="#000000">
+                </div>
+            </div>
+            
+            <div class="canvas-container">
+                <canvas id="pixelCanvas" width="640" height="480"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
