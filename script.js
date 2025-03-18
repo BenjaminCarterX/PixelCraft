@@ -17,6 +17,7 @@ class PixelEditor {
         
         this.setupEventListeners();
         this.setupTools();
+        this.updateColorSwatches();
     }
     
     setupEventListeners() {
@@ -27,6 +28,15 @@ class PixelEditor {
         
         document.getElementById('colorPicker').addEventListener('change', (e) => {
             this.currentColor = e.target.value;
+            this.updateColorSwatches();
+        });
+        
+        document.querySelectorAll('.color-swatch').forEach(swatch => {
+            swatch.addEventListener('click', (e) => {
+                this.currentColor = e.target.dataset.color;
+                document.getElementById('colorPicker').value = this.currentColor;
+                this.updateColorSwatches();
+            });
         });
     }
     
@@ -77,6 +87,15 @@ class PixelEditor {
     
     redraw() {
         this.drawGrid();
+    }
+    
+    updateColorSwatches() {
+        document.querySelectorAll('.color-swatch').forEach(swatch => {
+            swatch.classList.remove('active');
+            if (swatch.dataset.color === this.currentColor) {
+                swatch.classList.add('active');
+            }
+        });
     }
     
     getMousePos(e) {
