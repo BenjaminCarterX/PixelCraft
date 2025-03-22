@@ -7,6 +7,7 @@ class PixelEditor {
         this.currentColor = '#000000';
         this.showGrid = false;
         this.gridSize = 20;
+        this.brushSize = 2;
         
         this.init();
     }
@@ -37,6 +38,11 @@ class PixelEditor {
                 document.getElementById('colorPicker').value = this.currentColor;
                 this.updateColorSwatches();
             });
+        });
+        
+        document.getElementById('brushSize').addEventListener('input', (e) => {
+            this.brushSize = parseInt(e.target.value);
+            document.getElementById('sizeDisplay').textContent = this.brushSize;
         });
     }
     
@@ -116,7 +122,7 @@ class PixelEditor {
         if (!this.isDrawing) return;
         
         const pos = this.getMousePos(e);
-        this.ctx.lineWidth = 2;
+        this.ctx.lineWidth = this.brushSize;
         this.ctx.lineCap = 'round';
         
         if (this.currentTool === 'pencil') {
