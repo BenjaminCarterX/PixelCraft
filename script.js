@@ -55,6 +55,11 @@ class PixelEditor {
                     return;
                 }
                 
+                if (e.target.id === 'clear') {
+                    this.clearCanvas();
+                    return;
+                }
+                
                 tools.forEach(t => t.classList.remove('active'));
                 e.target.classList.add('active');
                 this.currentTool = e.target.id;
@@ -102,6 +107,14 @@ class PixelEditor {
                 swatch.classList.add('active');
             }
         });
+    }
+    
+    clearCanvas() {
+        if (confirm('Are you sure you want to clear the canvas?')) {
+            this.ctx.fillStyle = '#ffffff';
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            this.redraw();
+        }
     }
     
     getMousePos(e) {
