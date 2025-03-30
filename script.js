@@ -44,6 +44,12 @@ class PixelEditor {
             this.brushSize = parseInt(e.target.value);
             document.getElementById('sizeDisplay').textContent = this.brushSize;
         });
+        
+        document.getElementById('save').addEventListener('click', () => this.saveCanvas());
+        document.getElementById('load').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+        document.getElementById('fileInput').addEventListener('change', (e) => this.loadImage(e));
     }
     
     setupTools() {
@@ -115,6 +121,31 @@ class PixelEditor {
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
             this.redraw();
         }
+    }
+    
+    saveCanvas() {
+        const link = document.createElement('a');
+        link.download = 'pixelcraft_' + new Date().getTime() + '.png';
+        link.href = this.canvas.toDataURL();
+        link.click();
+    }
+    
+    loadImage(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                this.ctx.fillStyle = '#ffffff';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                this.ctx.drawImage(img, 0, 0);
+                this.redraw();
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
     }
     
     getMousePos(e) {
